@@ -16,7 +16,7 @@ public class VideoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private String title;
@@ -29,8 +29,8 @@ public class VideoEntity {
     private CategoryEntity category;
 
     @Column(nullable = false)
-    private String filePath;
+        private String fileId;                                // ID файла в Google Drive
 
     @Column(name = "thumbnail_url")
-    private String thumbnailUrl;
+    private String thumbnailUrl;                            // URL для превью-изображения
 }

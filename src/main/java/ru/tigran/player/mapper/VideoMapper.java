@@ -9,12 +9,12 @@ public class VideoMapper {
 
     // Конвертация Video в VideoDto
     public VideoDto toDto(VideoEntity video) {
-        return new VideoDto(video.getId(), video.getTitle(), video.getDescription(), video.getCategory(), video.getFilePath(), video.getThumbnailUrl());
+        return new VideoDto(video.getId(), video.getTitle(), video.getDescription(), video.getCategory(), video.getFileId(), video.getThumbnailUrl());
     }
 
     // Конвертация VideoDto в Video
     public VideoEntity toEntity(VideoDto videoDto) {
-        return new VideoEntity(videoDto.getId(), videoDto.getTitle(), videoDto.getDescription(), videoDto.getCategory(), videoDto.getFilePath(), videoDto.getThumbnailUrl());
+        return new VideoEntity(videoDto.getId(), videoDto.getTitle(), videoDto.getDescription(), videoDto.getCategory(), videoDto.getFileId(), videoDto.getThumbnailUrl());
     }
 
 }

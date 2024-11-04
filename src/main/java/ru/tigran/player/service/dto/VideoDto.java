@@ -10,11 +10,11 @@ import ru.tigran.player.model.CategoryEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class VideoDto {
-    private Long id;                    // Идентификатор видео
+    private Integer id;                 // Идентификатор видео
     private String title;               // Заголовок видео
     private String description;         // Описание видео
     @JsonIgnore
     private CategoryEntity category;    // Категория видео
-    private String filePath;            // Путь до файла
+    private String fileId;              // Путь до файла
     private String thumbnailUrl;        // URL превью-изображения
 }
