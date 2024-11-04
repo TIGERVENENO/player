@@ -36,28 +36,4 @@ public class VideoService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Видео не найдено!"));
         return videoMapper.toDto(video);
     }
-
-    // Добавление нового видео
-    public VideoDto addVideo(VideoDto videoDto) {
-        VideoEntity video = videoMapper.toEntity(videoDto);
-        video = videoRepository.save(video);
-        return videoMapper.toDto(video);
-    }
-
-    // Обновление видео
-    public VideoDto updateVideo(Long id, VideoDto videoDto) {
-        VideoEntity video = videoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Видео не найдено!"));
-        video.setTitle(videoDto.getTitle());
-        video.setDescription(videoDto.getDescription());
-        video.setCategory(videoDto.getCategory());
-        video.setThumbnailUrl(videoDto.getThumbnailUrl());
-        videoRepository.save(video);
-        return videoMapper.toDto(video);
-    }
-
-    // Удаление видео
-    public void deleteVideo(Long id) {
-        videoRepository.deleteById(id);
-    }
 }

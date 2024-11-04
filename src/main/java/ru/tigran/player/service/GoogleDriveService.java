@@ -38,7 +38,7 @@ public class GoogleDriveService {
                 .build();
     }
 
-    // Пример метода для получения списка файлов
+    // Метод для получения списка файлов
     public void listFiles() throws Exception {
         var result = driveService.files().list().setPageSize(10).setFields("files(id, name)").execute();
         var files = result.getFiles();

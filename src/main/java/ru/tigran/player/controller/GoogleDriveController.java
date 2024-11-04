@@ -30,23 +30,4 @@ public class GoogleDriveController {
     public ResponseEntity<VideoDto> getVideoById(@PathVariable Long id) {
         return ResponseEntity.ok(videoService.getVideoById(id));
     }
-
-    // Добавление нового видео
-    @PostMapping
-    public ResponseEntity<VideoDto> addVideo(@RequestBody VideoDto videoDto) {
-        return ResponseEntity.ok(videoService.addVideo(videoDto));
-    }
-
-    // Обновление видео
-    @PutMapping("/{id}")
-    public ResponseEntity<VideoDto> updateVideo(@PathVariable Long id, @RequestBody VideoDto videoDto) {
-        return ResponseEntity.ok(videoService.updateVideo(id, videoDto));
-    }
-
-    // Удаление видео
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVideo(@PathVariable Long id) {
-        videoService.deleteVideo(id);
-        return ResponseEntity.noContent().build();
-    }
 }
