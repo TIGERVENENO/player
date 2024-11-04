@@ -7,7 +7,7 @@ import ru.tigran.player.service.VideoService;
 import ru.tigran.player.service.dto.VideoDto;
 
 @RestController
-@RequestMapping("/api/videos")
+@RequestMapping("/api/drive/videos")
 public class GoogleDriveController {
 
     private final VideoService videoService;

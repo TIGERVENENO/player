@@ -7,7 +7,7 @@ import org.springframework.core.io.Resource;
 import ru.tigran.player.service.VideoPlayerService;
 
 @RestController
-@RequestMapping("/api/videos")
+@RequestMapping("/api/player")
 public class VideoPlayerController {
 
     private final VideoPlayerService videoPlayerService;
