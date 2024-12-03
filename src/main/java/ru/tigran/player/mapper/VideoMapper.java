@@ -1,8 +1,9 @@
 package ru.tigran.player.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.tigran.player.service.dto.VideoDto;
+
 import ru.tigran.player.model.VideoEntity;
+import ru.tigran.player.service.dto.VideoDto;
 
 @Component
 public class VideoMapper {
