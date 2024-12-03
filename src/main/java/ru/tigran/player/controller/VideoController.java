@@ -26,7 +26,7 @@ public class VideoController {
 
     // Получение всех видео с метаданными, пагинацией и сортировкой
     @GetMapping
-    @PreAuthorize("hasRole('GUEST')")
+    @PreAuthorize(value = "hasRole('USER')")
     public ResponseEntity<Page<VideoDto>> getAllVideos(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -36,7 +36,7 @@ public class VideoController {
 
     // Получение информации о конкретном видео, включая ссылку на HLS
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize(value = "hasRole('USER')")
     public ResponseEntity<VideoDto> getVideoById(@PathVariable Long id) {
         VideoDto videoDto = videoService.getVideoById(id);
         String hlsLink = googleDriveService.getHlsLink(videoDto.getFileId());

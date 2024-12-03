@@ -1,5 +1,6 @@
 package ru.tigran.player.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tigran.player.model.UserEntity;
@@ -16,8 +17,11 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserEntity> register(@RequestBody UserEntity user) {
-        user.setPassword(userService.encodePassword(user.getPassword()));
-        return ResponseEntity.ok(userService.registerUser(user));
+    public ResponseEntity<UserEntity> register(@RequestBody @Valid UserEntity user) {
+        try {
+            return ResponseEntity.ok(userService.registerUser(user));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
-} 
+}

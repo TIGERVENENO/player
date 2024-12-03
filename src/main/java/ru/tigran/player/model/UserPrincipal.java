@@ -11,7 +11,7 @@ public class UserPrincipal extends User {
     private final UserEntity userEntity;
 
     public UserPrincipal(UserEntity userEntity) {
-        super(userEntity.getUsername(), userEntity.getPassword(), Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + userEntity.getRole().name())));
+        super(userEntity.getUsername(), userEntity.getPassword(), Collections.singletonList(new SimpleGrantedAuthority(userEntity.getRole().name())));
         this.userEntity = userEntity;
     }
 

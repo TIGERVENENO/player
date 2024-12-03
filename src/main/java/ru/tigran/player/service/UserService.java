@@ -23,11 +23,8 @@ public class UserService {
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Пользователь с таким именем уже существует");
         }
+        // Кодируем пароль перед сохранением
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
-
-    public String encodePassword(String password) {
-        return passwordEncoder.encode(password);
-    }
-} 
+}
