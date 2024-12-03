@@ -1,5 +1,5 @@
 package ru.tigran.player.model;
 
 public enum Role {
-    USER, ADMIN, GUEST
+    ROLE_USER, ROLE_ADMIN, ROLE_GUEST
 }
