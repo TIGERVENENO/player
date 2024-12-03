@@ -2,7 +2,13 @@ package ru.tigran.player.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import ru.tigran.player.service.VideoService;
 import ru.tigran.player.service.dto.VideoDto;
 
@@ -18,6 +24,7 @@ public class GoogleDriveController {
 
     // Получение всех видео с пагинацией и сортировкой
     @GetMapping
+    @PreAuthorize("hasRole('USER')") // Доступно только для пользователей и администраторов
     public ResponseEntity<Page<VideoDto>> getAllVideos(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -27,6 +34,7 @@ public class GoogleDriveController {
 
     // Получение видео по ID
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')") // Доступно только для пользователей и администраторов
     public ResponseEntity<VideoDto> getVideoById(@PathVariable Long id) {
         return ResponseEntity.ok(videoService.getVideoById(id));
     }
