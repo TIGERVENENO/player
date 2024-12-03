@@ -18,25 +18,6 @@ CREATE TABLE IF NOT EXISTS categories
 );
 
 -- Создание таблицы heroes
-CREATE TABLE IF NOT EXISTS heroes
-(
-    id          SERIAL PRIMARY KEY,
-    name        VARCHAR(50) NOT NULL UNIQUE,
-    category_id INTEGER REFERENCES categories,
-    description TEXT
-);
-
--- Создание таблицы replays
-CREATE TABLE IF NOT EXISTS replays
-(
-    id            SERIAL PRIMARY KEY,
-    hero_id       INTEGER REFERENCES heroes,
-    file_path     VARCHAR(255) NOT NULL,
-    thumbnail_url VARCHAR(255) NOT NULL,
-    upload_date   DATE
-);
-
--- Создание таблицы videos
 CREATE TABLE IF NOT EXISTS videos
 (
     id            SERIAL PRIMARY KEY,
@@ -44,5 +25,24 @@ CREATE TABLE IF NOT EXISTS videos
     file_id       VARCHAR(255) NOT NULL,
     thumbnail_url VARCHAR(255),
     title         VARCHAR(255) NOT NULL,
-    category_id   BIGINT NOT NULL REFERENCES categories
+    category_id   INTEGER NOT NULL REFERENCES categories (id)
+);
+
+-- Создание таблицы videos
+CREATE TABLE IF NOT EXISTS heroes
+(
+    id          SERIAL PRIMARY KEY,
+    name        VARCHAR(50) NOT NULL UNIQUE,
+    category_id INTEGER REFERENCES categories (id),
+    description TEXT
+);
+
+-- Создание таблицы replays
+CREATE TABLE IF NOT EXISTS replays
+(
+    id            SERIAL PRIMARY KEY,
+    hero_id       INTEGER REFERENCES heroes (id),
+    file_path     VARCHAR(255) NOT NULL,
+    thumbnail_url VARCHAR(255) NOT NULL,
+    upload_date   DATE
 );
