@@ -12,5 +12,5 @@ public class UserDto {
     private String password;
 
     @NotBlank
-    private String role; // ADMIN или USER
+    private String role;
 }
