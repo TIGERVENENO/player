@@ -20,14 +20,16 @@ public class VideoService {
         this.videoMapper = videoMapper;
     }
 
+    // Получение списка видео с пагинацией и сортировкой
     public Page<VideoDto> getAllVideos(int page, int size, String sortBy) {
         Page<VideoEntity> videoEntities = videoRepository.findAll(PageRequest.of(page, size, Sort.by(sortBy)));
         return videoEntities.map(videoMapper::toDto);
     }
 
-    public VideoDto getVideoById(Integer id) {
-        VideoEntity videoEntity = videoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Video not found"));
-        return videoMapper.toDto(videoEntity);
+    // Получение информации о конкретном видео
+    public VideoDto getVideoById(Long id) {
+        return videoRepository.findById(id)
+                .map(videoMapper::toDto)
+                .orElse(null);
     }
 }

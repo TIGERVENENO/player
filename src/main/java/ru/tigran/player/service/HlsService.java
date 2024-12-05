@@ -11,12 +11,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
-public class VideoPlayerService {
+public class HlsService {
 
     private final ResourceLoader resourceLoader;
     private final String videoStoragePath = "C:/videos"; // Путь к папке с видео
 
-    public VideoPlayerService(ResourceLoader resourceLoader) {
+    public HlsService(ResourceLoader resourceLoader) {
         this.resourceLoader = resourceLoader;
     }
 
