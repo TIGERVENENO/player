@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@0.14.19/dist/hls.min.js"></script>
+</head>
+<body>
+<h1>Video Player</h1>
+<video id="video" width="100%" controls>
+    Your browser does not support HTML5 video.
+</video>
+<script>
+    var video = document.getElementById('video');
+    var videoUrl = 'http://localhost:8081/videos/sample.m3u8'; // Пример URL для HLS видео
+
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(videoUrl);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            console.log('Manifest loaded');
+        });
+    }
+    // для браузеров, которые не поддерживают hls.js
+    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoUrl;
+    }
+</script>
+</body>
+</html>

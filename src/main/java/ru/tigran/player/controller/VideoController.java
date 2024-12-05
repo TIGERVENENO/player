@@ -1,11 +1,15 @@
 package ru.tigran.player.controller;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.tigran.player.service.VideoService;
 import ru.tigran.player.service.dto.VideoDto;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/videos")
@@ -36,5 +40,19 @@ public class VideoController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(videoDto);
+    }
+
+    // Эндпоинт для получения HLS потока
+    @GetMapping("/hls/{videoId}")
+    public ResponseEntity<?> getVideoHLS(@PathVariable String videoId) {
+        try {
+            // Генерация HLS потока для видео
+            String hlsStreamUrl = videoService.generateHLSStream(videoId);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", "application/vnd.apple.mpegurl");
+            return new ResponseEntity<>(hlsStreamUrl, headers, HttpStatus.OK);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error generating HLS stream");
+        }
     }
 }

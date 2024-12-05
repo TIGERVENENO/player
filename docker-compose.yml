@@ -13,13 +13,12 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   video-storage:
-    image: nginx:latest  # Мы будем использовать Nginx для предоставления видео
-    restart: always
-    ports:
-      - "8081:8081"  # Видео будет доступно на порту 8081
+    image: nginx:latest
     volumes:
-      - video_data:/usr/share/nginx/html/videos  # Монтируем том для хранения видео
+      - ./videos:/usr/share/nginx/html/videos
+    ports:
+      - "8081:80"
+    restart: always
 
 volumes:
   postgres_data:
-  video_data:
