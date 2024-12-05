@@ -25,7 +25,7 @@ public class VideoPlayerController {
     // Стриминг видео с поддержкой Range-заголовков
     @GetMapping("/{id}/stream")
     @PreAuthorize("hasRole('USER')") // Доступно для авторизованных пользователей и администраторов
-    public ResponseEntity<Resource> streamVideo(@PathVariable Long id, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity<Resource> streamVideo(@PathVariable Integer id, @RequestHeader HttpHeaders headers) {
         return videoPlayerService.streamVideo(id, headers);
     }
 }

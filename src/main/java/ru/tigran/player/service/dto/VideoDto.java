@@ -17,4 +17,5 @@ public class VideoDto {
     private CategoryEntity category;    // Категория видео
     private String fileId;              // Путь до файла
     private String thumbnailUrl;        // URL превью-изображения
+    private String hlsLink;             // HLS-ссылка
 }

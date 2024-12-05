@@ -21,7 +21,7 @@ public class VideoPlayerService {
     }
 
     // Стриминг видео с поддержкой Range-запросов
-    public ResponseEntity<Resource> streamVideo(Long id, HttpHeaders headers) {
+    public ResponseEntity<Resource> streamVideo(Integer id, HttpHeaders headers) {
         // Получаем путь к видеофайлу (здесь предполагаем, что у видео есть имя в базе данных, соответствующее имени файла)
         String videoFileName = getVideoFileNameById(id);
         Path videoPath = Paths.get(videoStoragePath).resolve(videoFileName);
@@ -49,7 +49,7 @@ public class VideoPlayerService {
     }
 
     // Метод для получения имени файла по ID видео
-    private String getVideoFileNameById(Long id) {
+    private String getVideoFileNameById(Integer id) {
         // Для упрощения, здесь используется фиксированное имя видеофайла
         // В реальном приложении имя файла можно хранить в базе данных
         return "example_video.mp4"; // Подставить реальное имя видеофайла

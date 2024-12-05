@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryDto {
-    private Long id;            // Идентификатор категории
+    private Integer id;            // Идентификатор категории
     private String name;        // Название категории
     private String description; // Описание категории
 }
