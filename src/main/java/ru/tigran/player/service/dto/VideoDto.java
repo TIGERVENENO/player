@@ -13,9 +13,7 @@ public class VideoDto {
     private Integer id;                 // Идентификатор видео
     private String title;               // Заголовок видео
     private String description;         // Описание видео
-    @JsonIgnore
     private CategoryEntity category;    // Категория видео
-    private String fileId;              // Путь до файла
     private String thumbnailUrl;        // URL превью-изображения
     private String hlsLink;             // HLS-ссылка
 }

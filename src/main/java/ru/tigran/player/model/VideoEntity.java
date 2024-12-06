@@ -28,9 +28,6 @@ public class VideoEntity {
     @JoinColumn(name = "category_id")
     private CategoryEntity category;
 
-    @Column(nullable = false)
-        private String fileId;                                // ID файла в Google Drive
-
     @Column(name = "thumbnail_url")
-    private String thumbnailUrl;                            // URL для превью-изображения
+    private String thumbnailUrl;
 }

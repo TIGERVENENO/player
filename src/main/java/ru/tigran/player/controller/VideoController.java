@@ -31,6 +31,27 @@ public class VideoController {
         return ResponseEntity.ok(videoService.getAllVideos(page, size, sortBy));
     }
 
+    @GetMapping("/category/{category}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<Page<VideoDto>> getVideosByCategory(
+            @PathVariable String category,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "title") String sortBy) {
+        return ResponseEntity.ok(videoService.getVideosByCategory(category, page, size, sortBy));
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> deleteVideo(@PathVariable Long id) {
+        try {
+            videoService.deleteVideo(id);
+            return ResponseEntity.ok("Video deleted successfully.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
     // Получение информации о конкретном видео
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")

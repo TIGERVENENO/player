@@ -5,7 +5,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.tigran.player.mapper.VideoMapper;
+import ru.tigran.player.model.CategoryEntity;
 import ru.tigran.player.model.VideoEntity;
+import ru.tigran.player.repository.CategoryRepository;
 import ru.tigran.player.repository.VideoRepository;
 import ru.tigran.player.service.dto.VideoDto;
 
@@ -19,13 +21,15 @@ public class VideoService {
 
     private final VideoRepository videoRepository;
     private final VideoMapper videoMapper;
+    private final CategoryRepository categoryRepository;
 
     // Используем относительный путь к локальной папке проекта
     private static final String VIDEO_DIRECTORY = "videos/";
 
-    public VideoService(VideoRepository videoRepository, VideoMapper videoMapper) {
+    public VideoService(VideoRepository videoRepository, VideoMapper videoMapper, CategoryRepository categoryRepository) {
         this.videoRepository = videoRepository;
         this.videoMapper = videoMapper;
+        this.categoryRepository = categoryRepository;
     }
 
     public String generateHLSStream(String videoId) throws IOException {
@@ -144,9 +148,15 @@ public class VideoService {
         }
     }
 
-    // Остальные методы без изменений
     public Page<VideoDto> getAllVideos(int page, int size, String sortBy) {
         Page<VideoEntity> videoEntities = videoRepository.findAll(PageRequest.of(page, size, Sort.by(sortBy)));
+        return videoEntities.map(videoMapper::toDto);
+    }
+
+    public Page<VideoDto> getVideosByCategory(String categoryName, int page, int size, String sortBy) {
+        CategoryEntity category = categoryRepository.findByName(categoryName)
+                .orElseThrow(() -> new IllegalArgumentException("Category not found: " + categoryName));
+        Page<VideoEntity> videoEntities = videoRepository.findByCategory(category, PageRequest.of(page, size, Sort.by(sortBy)));
         return videoEntities.map(videoMapper::toDto);
     }
 
@@ -154,5 +164,12 @@ public class VideoService {
         return videoRepository.findById(id)
                 .map(videoMapper::toDto)
                 .orElse(null);
+    }
+
+    public void deleteVideo(Long id) {
+        if (!videoRepository.existsById(id)) {
+            throw new IllegalArgumentException("Video not found with ID: " + id);
+        }
+        videoRepository.deleteById(id);
     }
 }
