@@ -10,7 +10,6 @@ public class UserDto {
     private String username;
     @NotBlank
     private String password;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @NotBlank
     private String role;
 }

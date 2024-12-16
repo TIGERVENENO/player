@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.tigran.player.model.UserEntity;
+import ru.tigran.player.service.dto.LoginDto;
 import ru.tigran.player.service.dto.UserDto;
 
 /**
@@ -16,11 +16,11 @@ public interface AuthApi {
      * Регистрация.
      */
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Valid UserDto userDto);
+    ResponseEntity<String> register(@RequestBody @Valid UserDto userDto);
 
     /**
      * Вход.
      */
     @PostMapping("/login")
-    ResponseEntity<String> login(@RequestBody @Valid UserDto userDto);
+    ResponseEntity<String> login(@RequestBody @Valid LoginDto loginDto);
 }

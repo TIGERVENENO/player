@@ -1,7 +1,7 @@
 package ru.tigran.player.service;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.tigran.player.service.dto.LoginDto;
 import ru.tigran.player.service.dto.UserDto;
 import ru.tigran.player.model.Role;
 import ru.tigran.player.model.UserEntity;
@@ -13,11 +13,9 @@ import java.util.Base64;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -30,7 +28,7 @@ public class UserService {
 
         UserEntity user = new UserEntity();
         user.setUsername(userDto.getUsername());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setPassword(userDto.getPassword());
         try {
             user.setRole(Role.valueOf(userDto.getRole().toUpperCase()));
         } catch (IllegalArgumentException e) {
@@ -43,19 +41,20 @@ public class UserService {
     /**
      * Авторизация пользователя. Возвращает Basic Access Token.
      */
-    public String loginUser(UserDto userDto) {
-        // Ищем пользователя по имени
-        UserEntity user = userRepository.findByUsername(userDto.getUsername())
+    public String loginUser(LoginDto loginDto) {
+        // Ищем пользователя по логину
+        UserEntity user = userRepository.findByUsername(loginDto.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Неверный логин или пароль"));
 
-        // Проверяем, соответствует ли введённый пароль хэшу
-        if (!passwordEncoder.matches(userDto.getPassword(), user.getPassword())) {
+        // Сравниваем введённый пароль с паролем в базе данных
+        if (!loginDto.getPassword().equals(user.getPassword())) {
             throw new IllegalArgumentException("Неверный логин или пароль");
         }
 
-        // Генерируем Basic токен на основе исходного логина и пароля
-        return generateBasicToken(userDto.getUsername(), userDto.getPassword());
+        // Если пароль совпадает, генерируем и возвращаем Basic Access Token
+        return generateBasicToken(loginDto.getUsername(), loginDto.getPassword());
     }
+
 
 
     /**
