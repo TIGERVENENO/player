@@ -3,13 +3,16 @@ package ru.tigran.player.controller;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.tigran.player.api.AuthApi;
 import ru.tigran.player.model.UserEntity;
 import ru.tigran.player.service.UserService;
 import ru.tigran.player.service.dto.UserDto;
 
+/**
+ * Контроллер для регистрации.
+ */
 @RestController
-@RequestMapping("/api/auth")
-public class AuthController {
+public class AuthController implements AuthApi {
 
     private final UserService userService;
 
@@ -17,7 +20,7 @@ public class AuthController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
+    @Override
     public ResponseEntity<UserEntity> register(@RequestBody @Valid UserDto userDto) {
         try {
             UserEntity user = userService.registerUser(userDto);

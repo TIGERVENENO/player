@@ -5,23 +5,18 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.tigran.player.api.VideoStreamApi;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @RestController
-@RequestMapping("/api/stream")
-public class VideoStreamController {
-    @GetMapping("/{videoId}/{filename}")
-    public ResponseEntity<Resource> serveFile(
-            @PathVariable String videoId,
-            @PathVariable String filename) {
+public class VideoStreamController implements VideoStreamApi {
+
+    @Override
+    public ResponseEntity<Resource> serveFile(String videoId, String filename) {
         try {
             Path filePath = Paths.get("videos/" + videoId + "/" + filename);
             Resource resource = new UrlResource(filePath.toUri());
