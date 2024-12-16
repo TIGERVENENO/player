@@ -7,6 +7,9 @@ import ru.tigran.player.api.AuthApi;
 import ru.tigran.player.model.UserEntity;
 import ru.tigran.player.service.UserService;
 import ru.tigran.player.service.dto.UserDto;
+import ru.tigran.player.config.SecurityConfig;
+
+import java.util.Base64;
 
 /**
  * Контроллер для регистрации.
@@ -21,12 +24,23 @@ public class AuthController implements AuthApi {
     }
 
     @Override
-    public ResponseEntity<UserEntity> register(@RequestBody @Valid UserDto userDto) {
+    public ResponseEntity<String> register(@RequestBody @Valid UserDto userDto) {
         try {
-            UserEntity user = userService.registerUser(userDto);
-            return ResponseEntity.ok(user);
+            userService.registerUser(userDto);
+            String token = userService.loginUser(userDto);  // Генерация токена после регистрации
+            return ResponseEntity.ok(token);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/api/auth/login")
+    public ResponseEntity<String> login(@RequestBody @Valid UserDto userDto) {
+        try {
+            String token = userService.loginUser(userDto);
+            return ResponseEntity.ok(token);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(401).body("Неверный логин или пароль");
         }
     }
 }

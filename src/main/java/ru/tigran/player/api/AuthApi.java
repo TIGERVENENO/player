@@ -13,8 +13,14 @@ import ru.tigran.player.service.dto.UserDto;
 @RequestMapping("/api/auth")
 public interface AuthApi {
     /**
-     * Получить существующий дашборд по его id.
+     * Регистрация.
      */
     @PostMapping("/register")
-    public ResponseEntity<UserEntity> register(@RequestBody @Valid UserDto userDto);
+    public ResponseEntity<String> register(@RequestBody @Valid UserDto userDto);
+
+    /**
+     * Вход.
+     */
+    @PostMapping("/login")
+    ResponseEntity<String> login(@RequestBody @Valid UserDto userDto);
 }
