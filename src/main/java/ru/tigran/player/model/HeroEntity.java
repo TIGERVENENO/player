@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "category")
+@Table(name = "heroes")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryEntity {
+public class HeroEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,10 @@ public class CategoryEntity {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HeroEntity> heroes; // Связь с героями
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category; // Связь с категорией
+
+    @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<VideoEntity> videos; // Связь с видео
 }

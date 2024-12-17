@@ -5,12 +5,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.tigran.player.api.VideoApi;
 import ru.tigran.player.service.VideoService;
 import ru.tigran.player.service.dto.VideoDto;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class VideoController implements VideoApi {
@@ -23,19 +24,19 @@ public class VideoController implements VideoApi {
 
     @Override
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<Page<VideoDto>> getAllVideos(int page, int size, String sortBy) {
-        return ResponseEntity.ok(videoService.getAllVideos(page, size, sortBy));
+    public ResponseEntity<List<VideoDto>> getAllVideos() {
+        return ResponseEntity.ok(videoService.getAllVideos());
     }
 
     @Override
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<Page<VideoDto>> getVideosByCategory(String category, int page, int size, String sortBy) {
-        return ResponseEntity.ok(videoService.getVideosByCategory(category, page, size, sortBy));
+    public ResponseEntity<List<VideoDto>> getVideosByHero(@RequestParam String hero) {
+        return ResponseEntity.ok(videoService.getVideosByHero(hero));
     }
 
     @Override
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> deleteVideo(Long id) {
+    public ResponseEntity<String> deleteVideo(@PathVariable Integer id) {
         try {
             videoService.deleteVideo(id);
             return ResponseEntity.ok("Video deleted successfully.");
@@ -46,7 +47,7 @@ public class VideoController implements VideoApi {
 
     @Override
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<VideoDto> getVideoById(Long id) {
+    public ResponseEntity<VideoDto> getVideoById(@PathVariable Integer id) {
         VideoDto videoDto = videoService.getVideoById(id);
         if (videoDto == null) {
             return ResponseEntity.notFound().build();
@@ -55,7 +56,7 @@ public class VideoController implements VideoApi {
     }
 
     @Override
-    public ResponseEntity<?> getVideoHLS(String videoId) throws IOException {
+    public ResponseEntity<?> getVideoHLS(@PathVariable String videoId) throws IOException {
         try {
             String hlsStreamUrl = videoService.generateHLSStream(videoId);
             HttpHeaders headers = new HttpHeaders();

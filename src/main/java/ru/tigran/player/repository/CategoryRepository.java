@@ -5,6 +5,6 @@ import ru.tigran.player.model.CategoryEntity;
 
 import java.util.Optional;
 
-public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
+public interface CategoryRepository extends JpaRepository<CategoryEntity, Integer> {
     Optional<CategoryEntity> findByName(String name);
 }

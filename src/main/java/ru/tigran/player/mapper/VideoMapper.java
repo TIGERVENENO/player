@@ -9,11 +9,21 @@ public class VideoMapper {
 
     // Конвертация VideoEntity в VideoDto
     public VideoDto toDto(VideoEntity video) {
-        return new VideoDto(video.getId(), video.getTitle(), video.getDescription(), null, video.getThumbnailUrl(), null);
+        VideoDto dto = new VideoDto();
+        dto.setId(video.getId());
+        dto.setName(video.getName());
+        dto.setImageUrl(video.getImageUrl());
+        dto.setHeroId(video.getHero() != null ? video.getHero().getId() : null);
+        return dto;
     }
 
     // Конвертация VideoDto в VideoEntity
     public VideoEntity toEntity(VideoDto videoDto) {
-        return new VideoEntity(videoDto.getId(), videoDto.getTitle(), videoDto.getDescription(), videoDto.getCategory(), videoDto.getThumbnailUrl());
+        VideoEntity entity = new VideoEntity();
+        entity.setId(videoDto.getId());
+        entity.setName(videoDto.getName());
+        entity.setImageUrl(videoDto.getImageUrl());
+        // Hero привязывается отдельно в сервисе
+        return entity;
     }
 }

@@ -1,14 +1,11 @@
 package ru.tigran.player.service.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class CategoryDto {
-    private Integer id;            // Идентификатор категории
-    private String name;        // Название категории
-    private String description; // Описание категории
+    private Integer id;                // Идентификатор категории
+    private String name;               // Название категории
+    private String imageUrl;           // Ссылка на изображение категории
 }

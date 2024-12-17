@@ -6,8 +6,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.tigran.player.mapper.VideoMapper;
 import ru.tigran.player.model.CategoryEntity;
+import ru.tigran.player.model.HeroEntity;
 import ru.tigran.player.model.VideoEntity;
 import ru.tigran.player.repository.CategoryRepository;
+import ru.tigran.player.repository.HeroRepository;
 import ru.tigran.player.repository.VideoRepository;
 import ru.tigran.player.service.dto.VideoDto;
 
@@ -15,21 +17,23 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VideoService {
 
     private final VideoRepository videoRepository;
     private final VideoMapper videoMapper;
-    private final CategoryRepository categoryRepository;
+    private final HeroRepository heroRepository;
 
     // Используем относительный путь к локальной папке проекта
     private static final String VIDEO_DIRECTORY = "videos/";
 
-    public VideoService(VideoRepository videoRepository, VideoMapper videoMapper, CategoryRepository categoryRepository) {
+    public VideoService(VideoRepository videoRepository, VideoMapper videoMapper, CategoryRepository categoryRepository, HeroRepository heroRepository) {
         this.videoRepository = videoRepository;
         this.videoMapper = videoMapper;
-        this.categoryRepository = categoryRepository;
+        this.heroRepository = heroRepository;
     }
 
     public String generateHLSStream(String videoId) throws IOException {
@@ -148,28 +152,30 @@ public class VideoService {
         }
     }
 
-    public Page<VideoDto> getAllVideos(int page, int size, String sortBy) {
-        Page<VideoEntity> videoEntities = videoRepository.findAll(PageRequest.of(page, size, Sort.by(sortBy)));
-        return videoEntities.map(videoMapper::toDto);
-    }
-
-    public Page<VideoDto> getVideosByCategory(String categoryName, int page, int size, String sortBy) {
-        CategoryEntity category = categoryRepository.findByName(categoryName)
-                .orElseThrow(() -> new IllegalArgumentException("Category not found: " + categoryName));
-        Page<VideoEntity> videoEntities = videoRepository.findByCategory(category, PageRequest.of(page, size, Sort.by(sortBy)));
-        return videoEntities.map(videoMapper::toDto);
-    }
-
-    public VideoDto getVideoById(Long id) {
-        return videoRepository.findById(id)
+    public List<VideoDto> getAllVideos() {
+        List<VideoEntity> videoEntities = videoRepository.findAll();
+        return videoEntities.stream()
                 .map(videoMapper::toDto)
-                .orElse(null);
+                .collect(Collectors.toList());
     }
 
-    public void deleteVideo(Long id) {
-        if (!videoRepository.existsById(id)) {
+    public List<VideoDto> getVideosByHero(String heroName) {
+        HeroEntity hero = heroRepository.findByName(heroName);
+        List<VideoEntity> videoEntities = videoRepository.findByHero(hero);
+        return videoEntities.stream()
+                .map(videoMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public VideoDto getVideoById(Integer id) {
+        VideoEntity videoEntities = videoRepository.findById(id);
+        return videoMapper.toDto(videoEntities);
+    }
+
+    public void deleteVideo(Integer id) {
+        if (!videoRepository.existsById(Long.valueOf(id))) {
             throw new IllegalArgumentException("Video not found with ID: " + id);
         }
-        videoRepository.deleteById(id);
+        videoRepository.deleteById(Long.valueOf(id));
     }
 }

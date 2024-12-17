@@ -1,33 +1,28 @@
 package ru.tigran.player.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@Entity
+@Table(name = "videos")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "videos")
 public class VideoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
-    private String title;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @Column(nullable = false)
-    private String description;
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private CategoryEntity category;
-
-    @Column(name = "thumbnail_url")
-    private String thumbnailUrl;
+    @JoinColumn(name = "hero_id", nullable = false)
+    private HeroEntity hero; // Связь с героем
 }
