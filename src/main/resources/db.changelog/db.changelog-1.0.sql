@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS users
 (
-    id       SERIAL PRIMARY KEY,
-    password varchar(255) not null,
-    role     varchar(255) not null,
-    username varchar(255) not null unique
+    id       SERIAL PRIMARY KEY,            -- Уникальный идентификатор пользователя
+    password varchar(255) not null,         -- Пароль пользователя в зашифрованном виде
+    role     varchar(255) not null,         -- Роль пользователя (ROLE_USER или ROLE_ADMIN)
+    username varchar(255) not null unique   -- Имя пользователя
 );
 
 -- Создание таблицы category
