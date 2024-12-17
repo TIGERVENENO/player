@@ -4,7 +4,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.tigran.player.api.AuthApi;
-import ru.tigran.player.service.UserService;
+import ru.tigran.player.service.AuthService;
+import ru.tigran.player.service.dto.AurhResponseDto;
 import ru.tigran.player.service.dto.LoginDto;
 import ru.tigran.player.service.dto.UserDto;
 
@@ -14,33 +15,25 @@ import ru.tigran.player.service.dto.UserDto;
 @RestController
 public class AuthController implements AuthApi {
 
-    private final UserService userService;
+    private final AuthService authService;
 
-    public AuthController(UserService userService) {
-        this.userService = userService;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
     @Override
-    public ResponseEntity<String> register(@RequestBody @Valid UserDto userDto) {
-        try {
-            userService.registerUser(userDto);
-            LoginDto loginDto = new LoginDto();
-            loginDto.setUsername(userDto.getUsername());
-            loginDto.setPassword(userDto.getPassword());
-            String token = userService.loginUser(loginDto); // Генерация токена после регистрации
-            return ResponseEntity.ok(token);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    public ResponseEntity<AurhResponseDto> register(@RequestBody @Valid UserDto userDto) {
+        authService.registerUser(userDto);
+        LoginDto loginDto = new LoginDto();
+        loginDto.setUsername(userDto.getUsername());
+        loginDto.setPassword(userDto.getPassword());
+        AurhResponseDto aurhResponseDto = authService.loginUser(loginDto); // Генерация токена после регистрации
+        return ResponseEntity.ok(aurhResponseDto);
     }
 
     @Override
-    public ResponseEntity<String> login(@RequestBody @Valid LoginDto loginDto) {
-        try {
-            String token = userService.loginUser(loginDto);
-            return ResponseEntity.ok(token);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(401).body("Неверный логин или пароль");
-        }
+    public ResponseEntity<AurhResponseDto> login(@RequestBody @Valid LoginDto loginDto) {
+        AurhResponseDto aurhResponseDto = authService.loginUser(loginDto);
+        return ResponseEntity.ok(aurhResponseDto);
     }
 }

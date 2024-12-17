@@ -18,13 +18,13 @@ Authorization: Basic Y
 
 - **URL**: `/register`
 - **Метод**: `POST`
-- **Описание**: Регистрирует нового пользователя и возвращает токен для авторизации.
+- **Описание**: Регистрирует нового пользователя и возвращает данные с токеном для авторизации.
 - **Пример запроса**:
 
 ```json
 {
   "username": "admin",
-  "password": "password123",
+  "password": "admin",
   "role": "ROLE_ADMIN"
 }
 ```
@@ -34,7 +34,11 @@ Authorization: Basic Y
 Код: `200 OK`
 
 ```json
-"Basic YWRtaW46cGFzc3dvcmQxMjM="
+{
+  "username": "admin",
+  "token": "Basic YWRtaW46YWRtaW4=",
+  "role": "ROLE_ADMIN"
+}
 ```
 
 ### 2. Авторизация пользователя
@@ -47,7 +51,7 @@ Authorization: Basic Y
 ```json
 {
   "username": "admin",
-  "password": "password123"
+  "password": "admin"
 }
 ```
 
@@ -56,7 +60,11 @@ Authorization: Basic Y
 Код: `200 OK`
 
 ```json
-"Basic YWRtaW46cGFzc3dvcmQxMjM="
+{
+  "username": "admin",
+  "token": "Basic YWRtaW46YWRtaW4=",
+  "role": "ROLE_ADMIN"
+}
 ```
 
 

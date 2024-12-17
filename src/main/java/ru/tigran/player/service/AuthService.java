@@ -1,6 +1,7 @@
 package ru.tigran.player.service;
 
 import org.springframework.stereotype.Service;
+import ru.tigran.player.service.dto.AurhResponseDto;
 import ru.tigran.player.service.dto.LoginDto;
 import ru.tigran.player.service.dto.UserDto;
 import ru.tigran.player.model.Role;
@@ -10,11 +11,11 @@ import ru.tigran.player.repository.UserRepository;
 import java.util.Base64;
 
 @Service
-public class UserService {
+public class AuthService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -41,7 +42,7 @@ public class UserService {
     /**
      * Авторизация пользователя. Возвращает Basic Access Token.
      */
-    public String loginUser(LoginDto loginDto) {
+    public AurhResponseDto loginUser(LoginDto loginDto) {
         // Ищем пользователя по логину
         UserEntity user = userRepository.findByUsername(loginDto.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("Неверный логин или пароль"));
@@ -52,7 +53,12 @@ public class UserService {
         }
 
         // Если пароль совпадает, генерируем и возвращаем Basic Access Token
-        return generateBasicToken(loginDto.getUsername(), loginDto.getPassword());
+        String token = generateBasicToken(loginDto.getUsername(), loginDto.getPassword());
+        AurhResponseDto aurhResponseDto = new AurhResponseDto();
+        aurhResponseDto.setToken(token);
+        aurhResponseDto.setUsername(user.getUsername());
+        aurhResponseDto.setRole(String.valueOf(user.getRole()));
+        return aurhResponseDto;
     }
 
 
