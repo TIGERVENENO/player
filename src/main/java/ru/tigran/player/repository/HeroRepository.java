@@ -6,7 +6,8 @@ import ru.tigran.player.model.HeroEntity;
 
 import java.util.List;
 
-public interface HeroRepository extends JpaRepository<HeroEntity, Integer> {
+public interface HeroRepository extends JpaRepository<HeroEntity, Long> {
     List<HeroEntity> findByCategory(CategoryEntity category);
     HeroEntity findByName(String name);
+    HeroEntity findById(Integer id);
 }

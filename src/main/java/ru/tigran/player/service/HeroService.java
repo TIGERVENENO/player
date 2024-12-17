@@ -26,12 +26,17 @@ public class HeroService {
         this.categoryRepository = categoryRepository;
     }
 
-    public List<HeroDto> getHeroesByCategory(String name) {
-        CategoryEntity category = categoryRepository.findByName(name)
-                .orElseThrow(() -> new IllegalArgumentException("Category not found: " + name)); // На случай, если категория не найдена
+    public List<HeroDto> getHeroesByCategoryId(Integer categoryId) {
+        CategoryEntity category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new IllegalArgumentException("Category not found: " + categoryId)); // На случай, если категория не найдена
         List<HeroEntity> heroesEntities = heroRepository.findByCategory(category);
         return heroesEntities.stream()
                 .map(heroMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public HeroDto getHeroesById(Integer id) {
+        HeroEntity heroesEntity = heroRepository.findById(id);
+        return heroMapper.toDto(heroesEntity);
     }
 }
