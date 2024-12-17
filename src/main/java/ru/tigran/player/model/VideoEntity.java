@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "videos")
 @Data
@@ -25,4 +27,17 @@ public class VideoEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hero_id", nullable = false)
     private HeroEntity hero; // Связь с героем
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HeroEntity that = (HeroEntity) o;
+        return Objects.equals(id, that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

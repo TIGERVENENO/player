@@ -36,7 +36,7 @@ public class VideoService {
         this.heroRepository = heroRepository;
     }
 
-    public String generateHLSStream(String videoId) throws IOException {
+    public String generateHLSStream(Integer videoId) throws IOException {
         // Получаем абсолютный путь к папке проекта
         Path projectPath = Paths.get("").toAbsolutePath();
         String videoPath = projectPath.resolve(VIDEO_DIRECTORY + videoId + ".mp4").toString();

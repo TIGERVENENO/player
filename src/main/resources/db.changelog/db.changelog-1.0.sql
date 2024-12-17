@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS category
     image_url TEXT                  -- URL изображения категории
 );
 
--- Создание таблицы heroes
-CREATE TABLE IF NOT EXISTS heroes
+-- Создание таблицы hero
+CREATE TABLE IF NOT EXISTS hero
 (
     id          SERIAL PRIMARY KEY,   -- Уникальный идентификатор героя
     name        VARCHAR(50) NOT NULL, -- Имя героя
@@ -24,12 +24,12 @@ CREATE TABLE IF NOT EXISTS heroes
     FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE
 );
 
--- Создание таблицы videos
-CREATE TABLE IF NOT EXISTS videos
+-- Создание таблицы video
+CREATE TABLE IF NOT EXISTS video
 (
     id        SERIAL PRIMARY KEY,   -- Уникальный идентификатор видео
     name      VARCHAR(50) NOT NULL, -- Название видео
     image_url TEXT,                 -- URL изображения видео
     hero_id   INTEGER     NOT NULL, -- Идентификатор героя
-    FOREIGN KEY (hero_id) REFERENCES heroes (id) ON DELETE CASCADE
+    FOREIGN KEY (hero_id) REFERENCES hero (id) ON DELETE CASCADE
 );

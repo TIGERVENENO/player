@@ -24,14 +24,11 @@ public class VideoController implements VideoApi {
 
     @Override
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<VideoDto>> getAllVideos() {
+    public ResponseEntity<List<VideoDto>> getVideosByHero(@RequestParam(value = "hero", required = false) String heroName) {
+        if (heroName != null) {
+            return ResponseEntity.ok(videoService.getVideosByHero(heroName));
+        }
         return ResponseEntity.ok(videoService.getAllVideos());
-    }
-
-    @Override
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<VideoDto>> getVideosByHero(@RequestParam String hero) {
-        return ResponseEntity.ok(videoService.getVideosByHero(hero));
     }
 
     @Override
@@ -56,7 +53,7 @@ public class VideoController implements VideoApi {
     }
 
     @Override
-    public ResponseEntity<?> getVideoHLS(@PathVariable String videoId) throws IOException {
+    public ResponseEntity<?> getVideoHLS(@PathVariable Integer videoId) {
         try {
             String hlsStreamUrl = videoService.generateHLSStream(videoId);
             HttpHeaders headers = new HttpHeaders();

@@ -9,5 +9,4 @@ import java.util.List;
 public interface VideoRepository extends JpaRepository<VideoEntity, Long> {
     List<VideoEntity> findByHero(HeroEntity hero);
     VideoEntity findById(Integer id);
-
 }

@@ -23,9 +23,9 @@ Authorization: Basic Y
 
 ```json
 {
-  "username": "user123",
-  "password": "pass123",
-  "role": "USER_ROLE"
+  "username": "admin",
+  "password": "password123",
+  "role": "ROLE_ADMIN"
 }
 ```
 
@@ -46,8 +46,8 @@ Authorization: Basic Y
 
 ```json
 {
-  "username": "user123",
-  "password": "pass123"
+  "username": "admin",
+  "password": "password123"
 }
 ```
 
@@ -65,7 +65,7 @@ Authorization: Basic Y
 
 ### 3. Получение всех категорий
 
-- **URL**: `/categories`
+- **URL**: `/category`
 - **Метод**: `GET`
 - **Описание**: Возвращает список всех категорий.
 - **Требуется аутентификация**: Да
@@ -77,8 +77,18 @@ Authorization: Basic Y
 [
   {
     "id": 1,
-    "name": "string",         // Название категории
-    "imageUrl": "string"      // Ссылка на изображение категории
+    "name": "Strength",
+    "imageUrl": "https://example.com/strength.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Agility",
+    "imageUrl": "https://example.com/agility.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Intelligence",
+    "imageUrl": "https://example.com/intelligence.jpg"
   }
 ]
 ```
@@ -87,7 +97,7 @@ Authorization: Basic Y
 
 ### 4. Получение героев по категории
 
-- **URL**: `/heroes`
+- **URL**: `/hero`
 - **Метод**: `GET`
 - **Описание**: Возвращает список героев, относящихся к указанной категории.
 - **Требуется аутентификация**: Да
@@ -100,7 +110,7 @@ Authorization: Basic Y
 - **Пример запроса**:
 
 ```
-GET /heroes?category=Warriors
+GET /hero?category=Strength
 ```
 
 - **Ответ (успех)**:
@@ -111,9 +121,21 @@ GET /heroes?category=Warriors
 [
   {
     "id": 1,
-    "name": "string",         // Имя героя
-    "imageUrl": "string",     // Ссылка на изображение героя
-    "categoryId": 1            // ID категории
+    "name": "Axe",
+    "imageUrl": "https://example.com/axe.jpg",
+    "categoryId": 1
+  },
+  {
+    "id": 2,
+    "name": "Earthshaker",
+    "imageUrl": "https://example.com/earthshaker.jpg",
+    "categoryId": 1
+  },
+  {
+    "id": 3,
+    "name": "Pudge",
+    "imageUrl": "https://example.com/pudge.jpg",
+    "categoryId": 1
   }
 ]
 ```
@@ -122,7 +144,7 @@ GET /heroes?category=Warriors
 
 ### 5. Получение всех видео
 
-- **URL**: `/videos`
+- **URL**: `/video`
 
 - **Метод**: `GET`
 
@@ -138,9 +160,57 @@ GET /heroes?category=Warriors
 [
   {
     "id": 1,
-    "name": "string",         // Название видео
-    "imageUrl": "string",     // Ссылка на изображение видео
-    "heroId": 1                // ID героя
+    "name": "Axe Gameplay Guide",
+    "imageUrl": "https://example.com/axe_video.jpg",
+    "heroId": 1
+  },
+  {
+    "id": 2,
+    "name": "Earthshaker Pro Moves",
+    "imageUrl": "https://example.com/earthshaker_video.jpg",
+    "heroId": 2
+  },
+  {
+    "id": 3,
+    "name": "Pudge Hook Highlights",
+    "imageUrl": "https://example.com/pudge_video.jpg",
+    "heroId": 3
+  },
+  {
+    "id": 4,
+    "name": "Phantom Assassin Crit Masterclass",
+    "imageUrl": "https://example.com/phantom_assassin_video.jpg",
+    "heroId": 4
+  },
+  {
+    "id": 5,
+    "name": "Juggernaut Blade Fury Tips",
+    "imageUrl": "https://example.com/juggernaut_video.jpg",
+    "heroId": 5
+  },
+  {
+    "id": 6,
+    "name": "Sniper Positioning Strategies",
+    "imageUrl": "https://example.com/sniper_video.jpg",
+    "heroId": 6
+  },
+  {
+    "id": 7,
+    "name": "Crystal Maiden Ultimate Plays",
+    "imageUrl": "https://example.com/crystal_maiden_video.jpg",
+    "heroId": 7
+  },
+  {
+    "id": 8,
+    "name": "Invoker 4-Spell Combos",
+    "imageUrl": "https://example.com/invoker_video.jpg",
+    "heroId": 8
+  },
+  {
+    "id": 9,
+    "name": "Zeus Damage Build",
+    "imageUrl": "https://example.com/zeus_video.jpg",
+    "heroId": 9
   }
 ]
 ```
@@ -149,7 +219,7 @@ GET /heroes?category=Warriors
 
 ### 6. Получение видео по герою
 
-- **URL**: `/videos/hero`
+- **URL**: `/video`
 - **Метод**: `GET`
 - **Описание**: Возвращает список видео, относящихся к указанному герою.
 - **Требуется аутентификация**: Да
@@ -162,7 +232,7 @@ GET /heroes?category=Warriors
 - **Пример запроса**:
 
 ```
-GET /videos/hero?hero=JohnDoe
+GET /video?hero=Pudge
 ```
 
 - **Ответ (успех)**:
@@ -172,10 +242,10 @@ GET /videos/hero?hero=JohnDoe
 ```json
 [
   {
-    "id": 1,
-    "name": "string",         // Название видео
-    "imageUrl": "string",     // Ссылка на изображение видео
-    "heroId": 1                // ID героя
+    "id": 3,
+    "name": "Pudge Hook Highlights",
+    "imageUrl": "https://example.com/pudge_video.jpg",
+    "heroId": 3
   }
 ]
 ```
@@ -184,7 +254,7 @@ GET /videos/hero?hero=JohnDoe
 
 ### 7. Удаление видео (только админ)
 
-- **URL**: `/videos/{id}`
+- **URL**: `/video/{id}`
 
 - **Метод**: `DELETE`
 
@@ -206,7 +276,7 @@ GET /videos/hero?hero=JohnDoe
 
 ### 8. Получение видео по ID
 
-- **URL**: `/videos/{id}`
+- **URL**: `/video/{id}`
 
 - **Метод**: `GET`
 
@@ -221,9 +291,9 @@ GET /videos/hero?hero=JohnDoe
 ```json
 {
   "id": 1,
-  "name": "string",           // Название видео
-  "imageUrl": "string",       // Ссылка на изображение видео
-  "heroId": 1                  // ID героя
+  "name": "Axe Gameplay Guide",
+  "imageUrl": "https://example.com/axe_video.jpg",
+  "heroId": 1
 }
 ```
 
@@ -233,7 +303,7 @@ GET /videos/hero?hero=JohnDoe
 
 ### 9. Получение HLS потока видео
 
-- **URL**: `/videos/stream/{videoId}`
+- **URL**: `/video/stream/{videoId}`
 
 - **Метод**: `GET`
 
@@ -246,18 +316,18 @@ GET /videos/hero?hero=JohnDoe
 Код: `200 OK`
 
 ```
-<ссылка на HLS-поток>
+/api/stream/2/output.m3u8
 ```
 
 ---
 
 ### 10. Получение файлов видео
 
-- **URL**: `/videos/{videoId}/{filename}`
+- **URL**: `/video/{videoId}/{filename}`
 
 - **Метод**: `GET`
 
-- **Описание**: Возвращает файл видео или его часть (например, плейлист `.m3u8` или сегмент `.ts`).
+- **Описание**: Возвращает hls-поток).
 
 - **Ответ (успех)**:
 
@@ -266,8 +336,15 @@ GET /videos/hero?hero=JohnDoe
 - **Пример заголовка ответа**:
 
 ```
-Content-Type: application/x-mpegURL // для .m3u8
-Content-Type: video/MP2T            // для .ts
+#EXTM3U
+#EXT-X-VERSION:3
+#EXT-X-TARGETDURATION:12
+#EXT-X-MEDIA-SEQUENCE:0
+#EXTINF:11.933333,
+output0.ts
+#EXTINF:7.800000,
+output1.ts
+#EXT-X-ENDLIST
 ```
 
 

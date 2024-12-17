@@ -11,14 +11,11 @@ import ru.tigran.player.service.dto.VideoDto;
 import java.io.IOException;
 import java.util.List;
 
-    @RequestMapping("/api/videos")
+    @RequestMapping("/api/video")
 public interface VideoApi {
 
     @GetMapping
-    ResponseEntity<List<VideoDto>> getAllVideos();
-
-    @GetMapping("/category/{category}")
-    ResponseEntity<List<VideoDto>> getVideosByHero(@PathVariable @NotBlank String category);
+    ResponseEntity<List<VideoDto>> getVideosByHero(@RequestParam(value = "hero", required = false) String heroName);
 
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteVideo(@PathVariable Integer id);
@@ -27,5 +24,5 @@ public interface VideoApi {
     ResponseEntity<VideoDto> getVideoById(@PathVariable Integer id);
 
     @GetMapping("/hls/{videoId}")
-    ResponseEntity<?> getVideoHLS(@PathVariable  String videoId) throws IOException;
+    ResponseEntity<?> getVideoHLS(@PathVariable  Integer videoId) throws IOException;
 }
