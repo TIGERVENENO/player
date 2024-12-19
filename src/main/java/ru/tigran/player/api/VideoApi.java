@@ -23,6 +23,6 @@ public interface VideoApi {
     @GetMapping("/{id}")
     ResponseEntity<VideoDto> getVideoById(@PathVariable Integer id);
 
-    @GetMapping("/hls/{videoId}")
+    @GetMapping("/stream/{videoId}")
     ResponseEntity<?> getVideoHLS(@PathVariable  Integer videoId) throws IOException;
 }

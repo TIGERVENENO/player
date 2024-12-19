@@ -12,13 +12,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  video-storage:
-    image: nginx:latest
-    volumes:
-      - ./videos:/usr/share/nginx/html/videos
-    ports:
-      - "8081:80"
-    restart: always
+#  video-storage:
+#    image: nginx:latest
+#    volumes:
+#      - ./videos:/usr/share/nginx/html/videos
+#    ports:
+#      - "8081:80"
+#    restart: always
 
 volumes:
   postgres_data:

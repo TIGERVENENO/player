@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.Objects;
 
 @Entity
-@Table(name = "videos")
+@Table(name = "video")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

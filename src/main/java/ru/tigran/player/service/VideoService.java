@@ -1,11 +1,7 @@
 package ru.tigran.player.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.tigran.player.mapper.VideoMapper;
-import ru.tigran.player.model.CategoryEntity;
 import ru.tigran.player.model.HeroEntity;
 import ru.tigran.player.model.VideoEntity;
 import ru.tigran.player.repository.CategoryRepository;
@@ -27,10 +23,10 @@ public class VideoService {
     private final VideoMapper videoMapper;
     private final HeroRepository heroRepository;
 
-    // Используем относительный путь к локальной папке проекта
+    // Используем относительный путь к локальной папке с видео
     private static final String VIDEO_DIRECTORY = "videos/";
 
-    public VideoService(VideoRepository videoRepository, VideoMapper videoMapper, CategoryRepository categoryRepository, HeroRepository heroRepository) {
+    public VideoService(VideoRepository videoRepository, VideoMapper videoMapper, HeroRepository heroRepository) {
         this.videoRepository = videoRepository;
         this.videoMapper = videoMapper;
         this.heroRepository = heroRepository;
