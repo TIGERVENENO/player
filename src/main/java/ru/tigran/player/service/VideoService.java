@@ -47,19 +47,14 @@ public class VideoService {
         System.out.println("Output Directory: " + outputDirPath);
         System.out.println("Output M3U8 Path: " + outputPath);
 
-        // Проверка существования директории
-        File videoDir = new File(projectPath.resolve(VIDEO_DIRECTORY).toString());
-        if (!videoDir.exists()) {
-            throw new IOException("Video storage directory does not exist: " + videoDir.getAbsolutePath());
-        }
+        // Проверка, существует ли папка с нарезанным видео
+        File outputDir = new File(outputDirPath);
+        File hlsFile = new File(outputPath);
 
-        // Листинг всех файлов в директории
-        File[] files = videoDir.listFiles();
-        if (files != null) {
-            System.out.println("Files in video directory:");
-            for (File file : files) {
-                System.out.println(" - " + file.getName());
-            }
+        if (outputDir.exists() && hlsFile.exists()) {
+            // Папка и HLS файл уже существуют, возвращаем путь к HLS файлу
+            System.out.println("HLS already exists. Skipping FFmpeg processing.");
+            return "/api/stream/" + videoId + "/output.m3u8";
         }
 
         // Проверяем, существует ли исходный файл
@@ -70,7 +65,6 @@ public class VideoService {
         }
 
         // Создаем выходную папку, если она не существует
-        File outputDir = new File(outputDirPath);
         if (!outputDir.exists() && !outputDir.mkdirs()) {
             throw new IOException("Failed to create output directory: " + outputDirPath);
         }
@@ -101,7 +95,6 @@ public class VideoService {
             }
 
             // Проверяем, был ли создан файл HLS
-            File hlsFile = new File(outputPath);
             if (!hlsFile.exists()) {
                 throw new IOException("HLS output file not created: " + outputPath);
             }

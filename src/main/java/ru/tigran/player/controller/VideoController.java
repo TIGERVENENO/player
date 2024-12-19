@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.tigran.player.api.VideoApi;
 import ru.tigran.player.service.VideoService;
 import ru.tigran.player.service.dto.VideoDto;
@@ -55,12 +56,20 @@ public class VideoController implements VideoApi {
     @Override
     public ResponseEntity<?> getVideoHLS(@PathVariable Integer videoId) {
         try {
-            String hlsStreamUrl = videoService.generateHLSStream(videoId);
+            String hlsStreamPath = videoService.generateHLSStream(videoId);
+
+            // Формируем полный URL
+            String fullUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path(hlsStreamPath)
+                    .toUriString();
+
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Type", "application/vnd.apple.mpegurl");
-            return new ResponseEntity<>(hlsStreamUrl, headers, HttpStatus.OK);
+            headers.add("Content-Type", "text/plain"); // Указываем, что возвращаем текст
+
+            return new ResponseEntity<>(fullUrl, headers, HttpStatus.OK); // Возвращаем URL
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error generating HLS stream");
         }
     }
+
 }
