@@ -71,7 +71,7 @@ public class VideoService {
 
         // Команда FFmpeg
         String ffmpegCommand = String.format(
-                "ffmpeg -i %s -c:v libx264 -preset fast -crf 22 -c:a aac -strict -2 -f hls -hls_time 10 -hls_list_size 0 %s",
+                "ffmpeg -i %s -c:v libx264 -preset fast -crf 26 -vf scale=-2:720 -c:a aac -strict -2 -f hls -hls_time 10 -hls_list_size 0 %s",
                 videoPath, outputPath
         );
 
