@@ -25,5 +25,5 @@ public class CategoryEntity {
     private String imageUrl;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<HeroEntity> heroes; // Связь с героями
+    private List<AnimalEntity> animales; // Связь с животногоми
 }

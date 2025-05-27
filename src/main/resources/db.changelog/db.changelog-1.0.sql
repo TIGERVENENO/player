@@ -14,12 +14,12 @@ CREATE TABLE IF NOT EXISTS category
     image_url TEXT                  -- URL изображения категории
 );
 
--- Создание таблицы hero
-CREATE TABLE IF NOT EXISTS hero
+-- Создание таблицы animal
+CREATE TABLE IF NOT EXISTS animal
 (
-    id          SERIAL PRIMARY KEY,   -- Уникальный идентификатор героя
-    name        VARCHAR(50) NOT NULL, -- Имя героя
-    image_url   TEXT,                 -- URL изображения героя
+    id          SERIAL PRIMARY KEY,   -- Уникальный идентификатор животного
+    name        VARCHAR(50) NOT NULL, -- Имя животного
+    image_url   TEXT,                 -- URL изображения животного
     category_id INTEGER     NOT NULL, -- Идентификатор категории
     FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE
 );
@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS video
     id        SERIAL PRIMARY KEY,   -- Уникальный идентификатор видео
     name      VARCHAR(50) NOT NULL, -- Название видео
     image_url TEXT,                 -- URL изображения видео
-    hero_id   INTEGER     NOT NULL, -- Идентификатор героя
-    FOREIGN KEY (hero_id) REFERENCES hero (id) ON DELETE CASCADE
+    animal_id   INTEGER     NOT NULL, -- Идентификатор животного
+    FOREIGN KEY (animal_id) REFERENCES animal (id) ON DELETE CASCADE
 );
 
 

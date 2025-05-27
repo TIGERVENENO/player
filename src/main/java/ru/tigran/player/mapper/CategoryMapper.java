@@ -7,10 +7,10 @@ import ru.tigran.player.service.dto.CategoryDto;
 @Component
 public class CategoryMapper {
 
-    private final HeroMapper heroMapper;
+    private final AnimalMapper animalMapper;
 
-    public CategoryMapper(HeroMapper heroMapper) {
-        this.heroMapper = heroMapper;
+    public CategoryMapper(AnimalMapper animalMapper) {
+        this.animalMapper = animalMapper;
     }
 
     // Конвертация CategoryEntity в CategoryDto

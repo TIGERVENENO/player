@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "hero")
+@Table(name = "animal")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HeroEntity {
+public class AnimalEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,6 @@ public class HeroEntity {
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category; // Связь с категорией
 
-    @OneToMany(mappedBy = "hero", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<VideoEntity> videos; // Связь с видео
 }

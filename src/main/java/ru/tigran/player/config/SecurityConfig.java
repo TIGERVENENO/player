@@ -38,7 +38,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/videos/upload").hasRole("ADMIN")
                         .requestMatchers("/api/videos/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/category/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/api/hero/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/animal/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/stream/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )

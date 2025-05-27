@@ -15,7 +15,7 @@ import java.util.List;
 public interface VideoApi {
 
     @GetMapping
-    ResponseEntity<List<VideoDto>> getVideosByHero(@RequestParam(value = "hero", required = false) String heroName);
+    ResponseEntity<List<VideoDto>> getVideosByAnimal(@RequestParam(value = "animal", required = false) String animalName);
 
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteVideo(@PathVariable Integer id);

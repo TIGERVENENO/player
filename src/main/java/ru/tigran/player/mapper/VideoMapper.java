@@ -13,7 +13,7 @@ public class VideoMapper {
         dto.setId(video.getId());
         dto.setName(video.getName());
         dto.setImageUrl(video.getImageUrl());
-        dto.setHeroId(video.getHero() != null ? video.getHero().getId() : null);
+        dto.setAnimalId(video.getAnimal() != null ? video.getAnimal().getId() : null);
         return dto;
     }
 
@@ -23,7 +23,7 @@ public class VideoMapper {
         entity.setId(videoDto.getId());
         entity.setName(videoDto.getName());
         entity.setImageUrl(videoDto.getImageUrl());
-        // Hero привязывается отдельно в сервисе
+        // Animal привязывается отдельно в сервисе
         return entity;
     }
 }

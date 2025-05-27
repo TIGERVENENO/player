@@ -25,14 +25,14 @@ public class VideoEntity {
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hero_id", nullable = false)
-    private HeroEntity hero; // Связь с героем
+    @JoinColumn(name = "animal_id", nullable = false)
+    private AnimalEntity animal; // Связь с животным
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        HeroEntity that = (HeroEntity) o;
+        AnimalEntity that = (AnimalEntity) o;
         return Objects.equals(id, that.getId());
     }
 

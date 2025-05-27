@@ -101,22 +101,22 @@ Authorization: Basic Y
 ]
 ```
 
-### 4. Получение героя по id
+### 4. Получение животного по id
 
-- **URL**: `/hero/{id}`
+- **URL**: `/animal/{id}`
 - **Метод**: `GET`
-- **Описание**: Возвращает данные по герою, на основании его id.
+- **Описание**: Возвращает данные по животному, на основании его id.
 - **Требуется аутентификация**: Да
 - **Параметры запроса**:
 
 | Параметр | Тип     | Обязательный | Описание |
 |----------|---------| ------------ |----------|
-| `id`     | integer | Да           | id героя |
+| `id`     | integer | Да           | id животного |
 
 - **Пример запроса**:
 
 ```
-GET api/hero/3
+GET api/animal/3
 ```
 
 - **Ответ (успех)**:
@@ -135,11 +135,11 @@ GET api/hero/3
 
 ---
 
-### 5. Получение героев по категории
+### 5. Получение животных по категории
 
-- **URL**: `/hero`
+- **URL**: `/animal`
 - **Метод**: `GET`
-- **Описание**: Возвращает список героев, относящихся к указанной категории.
+- **Описание**: Возвращает список животных, относящихся к указанной категории.
 - **Требуется аутентификация**: Да
 - **Параметры запроса**:
 
@@ -150,7 +150,7 @@ GET api/hero/3
 - **Пример запроса**:
 
 ```
-GET /hero?category=1
+GET /animal?category=1
 ```
 
 - **Ответ (успех)**:
@@ -202,77 +202,77 @@ GET /hero?category=1
     "id": 1,
     "name": "Axe Gameplay Guide",
     "imageUrl": "https://example.com/axe_video.jpg",
-    "heroId": 1
+    "animalId": 1
   },
   {
     "id": 2,
     "name": "Earthshaker Pro Moves",
     "imageUrl": "https://example.com/earthshaker_video.jpg",
-    "heroId": 2
+    "animalId": 2
   },
   {
     "id": 3,
     "name": "Pudge Hook Highlights",
     "imageUrl": "https://example.com/pudge_video.jpg",
-    "heroId": 3
+    "animalId": 3
   },
   {
     "id": 4,
     "name": "Phantom Assassin Crit Masterclass",
     "imageUrl": "https://example.com/phantom_assassin_video.jpg",
-    "heroId": 4
+    "animalId": 4
   },
   {
     "id": 5,
     "name": "Juggernaut Blade Fury Tips",
     "imageUrl": "https://example.com/juggernaut_video.jpg",
-    "heroId": 5
+    "animalId": 5
   },
   {
     "id": 6,
     "name": "Sniper Positioning Strategies",
     "imageUrl": "https://example.com/sniper_video.jpg",
-    "heroId": 6
+    "animalId": 6
   },
   {
     "id": 7,
     "name": "Crystal Maiden Ultimate Plays",
     "imageUrl": "https://example.com/crystal_maiden_video.jpg",
-    "heroId": 7
+    "animalId": 7
   },
   {
     "id": 8,
     "name": "Invoker 4-Spell Combos",
     "imageUrl": "https://example.com/invoker_video.jpg",
-    "heroId": 8
+    "animalId": 8
   },
   {
     "id": 9,
     "name": "Zeus Damage Build",
     "imageUrl": "https://example.com/zeus_video.jpg",
-    "heroId": 9
+    "animalId": 9
   }
 ]
 ```
 
 ---
 
-### 7. Получение видео по герою
+### 7. Получение видео по животному
 
 - **URL**: `/video`
 - **Метод**: `GET`
-- **Описание**: Возвращает список видео, относящихся к указанному герою.
+- **Описание**: Возвращает список видео, относящихся к указанному животному.
 - **Требуется аутентификация**: Да
 - **Параметры запроса**:
 
 | Параметр | Тип    | Обязательный | Описание  |
 | -------- | ------ | ------------ | --------- |
-| `hero`   | string | Да           | Имя героя |
+| `animal`   | string | Да           | Имя животного |
 
 - **Пример запроса**:
 
 ```
-GET /video?hero=Pudge
+GET /video?animal=Pudge
 ```
 
 - **Ответ (успех)**:
@@ -285,7 +285,7 @@ GET /video?hero=Pudge
     "id": 3,
     "name": "Pudge Hook Highlights",
     "imageUrl": "https://example.com/pudge_video.jpg",
-    "heroId": 3
+    "animalId": 3
   }
 ]
 ```
@@ -333,7 +333,7 @@ GET /video?hero=Pudge
   "id": 1,
   "name": "Axe Gameplay Guide",
   "imageUrl": "https://example.com/axe_video.jpg",
-  "heroId": 1
+  "animalId": 1
 }
 ```
 

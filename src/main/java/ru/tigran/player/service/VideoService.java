@@ -2,10 +2,10 @@ package ru.tigran.player.service;
 
 import org.springframework.stereotype.Service;
 import ru.tigran.player.mapper.VideoMapper;
-import ru.tigran.player.model.HeroEntity;
+import ru.tigran.player.model.AnimalEntity;
 import ru.tigran.player.model.VideoEntity;
 import ru.tigran.player.repository.CategoryRepository;
-import ru.tigran.player.repository.HeroRepository;
+import ru.tigran.player.repository.AnimalRepository;
 import ru.tigran.player.repository.VideoRepository;
 import ru.tigran.player.service.dto.VideoDto;
 
@@ -21,15 +21,15 @@ public class VideoService {
 
     private final VideoRepository videoRepository;
     private final VideoMapper videoMapper;
-    private final HeroRepository heroRepository;
+    private final AnimalRepository animalRepository;
 
     // Используем относительный путь к локальной папке с видео
     private static final String VIDEO_DIRECTORY = "videos/";
 
-    public VideoService(VideoRepository videoRepository, VideoMapper videoMapper, HeroRepository heroRepository) {
+    public VideoService(VideoRepository videoRepository, VideoMapper videoMapper, AnimalRepository animalRepository) {
         this.videoRepository = videoRepository;
         this.videoMapper = videoMapper;
-        this.heroRepository = heroRepository;
+        this.animalRepository = animalRepository;
     }
 
     public String generateHLSStream(Integer videoId) throws IOException {
@@ -148,9 +148,9 @@ public class VideoService {
                 .collect(Collectors.toList());
     }
 
-    public List<VideoDto> getVideosByHero(String heroName) {
-        HeroEntity hero = heroRepository.findByName(heroName);
-        List<VideoEntity> videoEntities = videoRepository.findByHero(hero);
+    public List<VideoDto> getVideosByAnimal(String animalName) {
+        AnimalEntity animal = animalRepository.findByName(animalName);
+        List<VideoEntity> videoEntities = videoRepository.findByAnimal(animal);
         return videoEntities.stream()
                 .map(videoMapper::toDto)
                 .collect(Collectors.toList());

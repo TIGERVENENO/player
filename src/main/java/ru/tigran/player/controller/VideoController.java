@@ -25,9 +25,9 @@ public class VideoController implements VideoApi {
 
     @Override
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<List<VideoDto>> getVideosByHero(@RequestParam(value = "hero", required = false) String heroName) {
-        if (heroName != null) {
-            return ResponseEntity.ok(videoService.getVideosByHero(heroName));
+    public ResponseEntity<List<VideoDto>> getVideosByAnimal(@RequestParam(value = "animal", required = false) String animalName) {
+        if (animalName != null) {
+            return ResponseEntity.ok(videoService.getVideosByAnimal(animalName));
         }
         return ResponseEntity.ok(videoService.getAllVideos());
     }
